@@ -1,0 +1,101 @@
+<Window x:Class="RussianMilkApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="АО ГК &quot;Российское молоко&quot; - Учет партий" Height="560" Width="980"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="36*"/>
+            <ColumnDefinition Width="203*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#FFF4F7FB" Padding="14" CornerRadius="10" Margin="0,0,0,10" Grid.ColumnSpan="2">
+            <StackPanel>
+                <TextBlock Text="Учет партий молочной продукции"
+                           FontSize="24"
+                           FontWeight="Bold"/>
+                <TextBlock
+                           Margin="0,6,0,0"
+                           Foreground="#555"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="0,0,0,10" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="SearchTextBox"
+                     Height="34"
+                     VerticalContentAlignment="Center"
+                     Margin="0,0,10,0"
+                     FontSize="14"
+                     ToolTip="Введите название продукта"/>
+
+            <Button Grid.Column="1"
+                    Content="Поиск"
+                    Width="120"
+                    Height="34"
+                    Margin="0,0,10,0"
+                    Click="SearchButton_Click"/>
+
+            <Button Grid.Column="2"
+                    Content="Сбросить"
+                    Width="120"
+                    Height="34"
+                    Margin="0,0,10,0"
+                    Click="ResetButton_Click"/>
+
+            <Button Grid.Column="3"
+                    Content="Добавить партию"
+                    Width="150"
+                    Height="34"
+                    Click="AddBatchButton_Click"/>
+        </Grid>
+
+        <DataGrid x:Name="BatchesGrid"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  Margin="0,0,0,10"
+                  HeadersVisibility="Column"
+                  RowHeight="34" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID партии" Binding="{Binding BatchId}" Width="90"/>
+                <DataGridTextColumn Header="Продукт" Binding="{Binding ProductName}" Width="220"/>
+                <DataGridTextColumn Header="Склад" Binding="{Binding WarehouseName}" Width="180"/>
+                <DataGridTextColumn Header="Дата производства" Binding="{Binding ProductionDate, StringFormat=dd.MM.yyyy}" Width="140"/>
+                <DataGridTextColumn Header="Годен до" Binding="{Binding ExpirationDate, StringFormat=dd.MM.yyyy}" Width="120"/>
+                <DataGridTextColumn Header="Количество" Binding="{Binding Quantity}" Width="100"/>
+                <DataGridTextColumn Header="Осталось дней" Binding="{Binding DaysLeft}" Width="110"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DockPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,350,0,0" Grid.RowSpan="2">
+            <TextBlock x:Name="StatusTextBlock"
+                       Text="Готово"
+                       VerticalAlignment="Center"
+                       Foreground="#555"/>
+            <Button Content="Обновить"
+                    Width="120"
+                    Height="34"
+                    HorizontalAlignment="Right"
+                    DockPanel.Dock="Right"
+                    Click="RefreshButton_Click"/>
+        </DockPanel>
+    </Grid>
+</Window>
